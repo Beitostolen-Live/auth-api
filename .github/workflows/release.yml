@@ -1,0 +1,24 @@
+name: Release run
+on:
+  push:
+    branches: [ release ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+      - name: Variable substitutions
+      - name: FTP-Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 22
+          protocol: ftps
+          local-dir: ${{ secrets.LOCAL_DIR }}
+          server-dir: ${{ secrets.DEPLOY_DIR }}
+      - name: DB Migration
+      - name: Check health
