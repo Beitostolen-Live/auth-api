@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('cors');
+    }
+
+    /**
      * Store a new user.
      *
      * @param  Request  $request

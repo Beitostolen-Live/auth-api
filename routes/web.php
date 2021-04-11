@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api/v1'], function() use ($router) {
+$router->group(['prefix' => 'api/v1', 'middleware' => 'cors'], function() use ($router) {
     $router->post('register', 'AuthController@register');
     $router->post('login', 'AuthController@login');
     $router->get('validate', 'TokenController@token');
@@ -26,4 +26,8 @@ $router->group(['prefix' => 'api/v1'], function() use ($router) {
     $router->get('users/{id}', 'UserController@singleUser');
     $router->get('users', 'UserController@allUsers');
     $router->put('users/{id}', 'UserController@updateUser');
+    // Fallback
+    $router->options('{any:.*}', function (){
+        return;
+    });
 });
